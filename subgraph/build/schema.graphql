@@ -1,0 +1,8 @@
+type JournalRecord @entity(immutable: true) {
+  id: ID! # Unique per record, e.g., patientId + blockchain timestamp
+  patientId: String! # hashed patient ID
+  recordHash: String! # HMAC of record
+  author: String! # provider address
+  recordType: Int!
+  timestamp: BigInt! # blockchain timestamp
+}
