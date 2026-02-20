@@ -1,0 +1,8 @@
+blockchain/ignition/deployments/chain-31337/artifacts/BlockDocModule\#BlockDoc.json
+blockchain/ignition/deployments/chain-31337/deployed_addresses.json
+subgraph/build/BlockDoc/BlockDoc.wasm
+subgraph/.env
+backend/config/config.env
+blockchain/ignition/deployments/chain-31337/journal.jsonl
+subgraph/generated/BlockDoc/BlockDoc.ts
+subgraph/build/BlockDoc/BlockDocAbi.json
