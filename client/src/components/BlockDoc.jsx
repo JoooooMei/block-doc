@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 const BlockDoc = () => {
   return (
     <div>
-      This is <span className="block-doc">Block Dock</span>
+      This is <span className="block-doc">Block Doc</span>
     </div>
   );
 };

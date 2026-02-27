@@ -20,7 +20,7 @@ function App() {
         provider: '0x1234567890abcdef1234567890abcdef12345678',
         patientId: '19121212-1212',
         recordType: 1,
-        note: 'Test från frontend',
+        note: 'Något förkyld och osäker på blodvärden men ser väl bra ut',
         diagnose: 'Virusinfektion',
       };
 
@@ -49,6 +49,9 @@ function App() {
           </p>
           <p>
             <b>Patient ID:</b> {entry.addedToDb.patientId}
+          </p>
+          <p>
+            <b>Note:</b> {entry.addedToDb.note}
           </p>
           <p>
             <b>Diagnose:</b> {entry.addedToDb.diagnose}

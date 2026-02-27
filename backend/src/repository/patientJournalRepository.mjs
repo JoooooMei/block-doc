@@ -9,6 +9,16 @@ export class PatientJournalRepository {
     this.smartContract = new smartContractModel();
   }
 
+  async getAllPatients() {
+    return await journalEntryModel.find();
+  }
+
+  async addPatient(patient) {
+    const patient = await journalEntryModel.create(record);
+
+    return patient;
+  }
+
   async addRecord(record) {
     const { patientId, note, diagnose, recordType } = record;
 
