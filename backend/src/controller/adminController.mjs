@@ -7,7 +7,10 @@ export const addProvider = async (req, res) => {
     const user = await new PatientJournalRepository().addProvider(req.body);
 
     res.status(201).json({ success: true, statusCode: 201, data: user });
-  } catch (error) {}
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
 };
 
 export const authorizeProvider = async (req, res) => {

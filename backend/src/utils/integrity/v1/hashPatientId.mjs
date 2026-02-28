@@ -8,13 +8,4 @@ export function hashPatientId(patientId) {
       .update(String(patientId).normalize('NFC'))
       .digest('hex')
   );
-  return (
-    '0x' +
-    crypto
-
-      .update(
-        String(patientId + process.env.HASH_PATIENT_SECRET).normalize('NFC')
-      )
-      .digest('hex')
-  );
 }

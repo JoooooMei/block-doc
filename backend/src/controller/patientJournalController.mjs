@@ -4,7 +4,7 @@ const repository = new PatientJournalRepository();
 
 export const getAllPatients = async (req, res) => {
   try {
-    const patients = repository.getAllPatients();
+    const patients = await repository.getAllPatients();
     res.status(200).json({ success: true, patients });
   } catch (error) {
     console.error(err);
