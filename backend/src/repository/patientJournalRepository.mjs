@@ -1,6 +1,7 @@
 import { smartContractModel } from '../Models/SmartContractModel.mjs';
 import providerModel from '../Models/schema/providerModel.mjs';
 import journalEntryModel from '../Models/schema/journalEntryModel.mjs';
+import patientModel from '../Models/schema/patientModel.mjs';
 import { hashRecord } from '../utils/integrity/v1/hashRecord.mjs';
 import { hashPatientId } from '../utils/integrity/v1/hashPatientId.mjs';
 
@@ -10,13 +11,13 @@ export class PatientJournalRepository {
   }
 
   async getAllPatients() {
-    return await journalEntryModel.find();
+    return await patientModel.find();
   }
 
   async addPatient(patient) {
-    const patient = await journalEntryModel.create(record);
+    const newPatient = await patientModel.create(patient);
 
-    return patient;
+    return newPatient;
   }
 
   async addRecord(record) {
