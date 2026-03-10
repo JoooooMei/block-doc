@@ -4,7 +4,7 @@ import NewJournalEntry from './newJournalEntry/NewJournalEntry';
 import PatientCard from './patientCard/PatientCard';
 import BlockIcon from './icons/BlockIcon';
 import AddPatient from './addPatient/AddPatient';
-import NewPatientForm from './newPatient/NewPatientForm';
+import AddPatientForm from './addPatient/AddPatientForm';
 
 const BlockDoc = () => {
   const [mainView, setMainView] = useState('');
@@ -53,7 +53,7 @@ const BlockDoc = () => {
 
         {mainView === 'edit-info' && ''}
 
-        {mainView === 'add-new-patient' && <NewPatientForm />}
+        {mainView === 'add-new-patient' && <AddPatientForm />}
       </main>
     </>
   );
