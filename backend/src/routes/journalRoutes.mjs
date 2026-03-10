@@ -4,6 +4,7 @@ import {
   addRecord,
   getAllPatients,
   getData,
+  getPatient,
   verifyRecord,
 } from '../controller/patientJournalController.mjs';
 
@@ -11,6 +12,7 @@ const journalRouter = Router();
 
 journalRouter.get('/data', getData);
 journalRouter.get('/patients', getAllPatients);
+journalRouter.get('/patient/:patientId', getPatient);
 
 journalRouter.post('/patients', addPatient);
 journalRouter.post('/add-record', addRecord);

@@ -2,13 +2,31 @@ import { PatientJournalRepository } from '../repository/patientJournalRepository
 
 const repository = new PatientJournalRepository();
 
+export const getPatient = async (req, res) => {
+  console.log('GET THIS', req.params.patientId);
+
+  try {
+    const patient = await repository.searchPatient(req.params.patientId);
+
+    res.status(200).json({
+      success: true,
+      patient,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 export const getAllPatients = async (req, res) => {
   try {
     const patients = await repository.getAllPatients();
     res.status(200).json({ success: true, patients });
   } catch (error) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -16,9 +34,9 @@ export const addPatient = async (req, res) => {
   try {
     const data = await repository.addPatient(req.body);
     res.status(200).json({ success: true, data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -27,18 +45,18 @@ export const addRecord = async (req, res) => {
     const data = await repository.addRecord(req.body);
 
     res.json({ success: true, data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
 export const verifyRecord = async (req, res) => {
   try {
     const data = await repository.verifyRecord(req.body);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 

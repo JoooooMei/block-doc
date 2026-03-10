@@ -24,4 +24,8 @@ export class JournalService {
 
     return this.journalRepository.getRecords(patientId);
   }
+
+  async fetchPatientById(patientId) {
+    return this.journalRepository.getPatientById(patientId);
+  }
 }

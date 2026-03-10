@@ -6,7 +6,7 @@ const MAX_PORT = 3100;
 function startServer(port = DEFAULT_PORT) {
   const server = app.listen(port, () => {
     console.log(
-      `Server runnign on http://localhost:${port} in ${process.env.NODE_ENV} mode`
+      `Server running on http://localhost:${port} in ${process.env.NODE_ENV} mode`
     );
   });
 

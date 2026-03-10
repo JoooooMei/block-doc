@@ -3,10 +3,10 @@ import validator from 'validator';
 
 const patientSchema = new mongoose.Schema({
   patientId: {
-    type: Number,
+    type: String,
     required: [true, 'No patient ID provided'],
   },
-  firastname: {
+  firstName: {
     type: String,
     required: [true, 'No first name provided'],
   },
@@ -33,5 +33,7 @@ const patientSchema = new mongoose.Schema({
     },
   },
 });
+
+patientSchema.index({ patientId: 1 }, { unique: true });
 
 export default mongoose.model('patient', patientSchema);

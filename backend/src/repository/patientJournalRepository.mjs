@@ -10,6 +10,16 @@ export class PatientJournalRepository {
     this.smartContract = new smartContractModel();
   }
 
+  async searchPatient(query) {
+    return await patientModel.find({
+      $or: [
+        { patientId: { $regex: query, $options: 'i' } },
+        { firstName: { $regex: query, $options: 'i' } },
+        { lastName: { $regex: query, $options: 'i' } },
+      ],
+    });
+  }
+
   async getAllPatients() {
     return await patientModel.find();
   }

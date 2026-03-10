@@ -21,8 +21,11 @@ export class ApiClient {
     return response.json();
   }
 
-  get(path) {
-    return this.request(path, { method: 'GET' });
+  get(path, body) {
+    return this.request(path, {
+      method: 'GET',
+      body: JSON.stringify(body),
+    });
   }
 
   post(path, body) {

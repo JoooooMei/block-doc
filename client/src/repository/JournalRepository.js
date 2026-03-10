@@ -10,4 +10,8 @@ export class JournalRepository {
   getRecords(patientId) {
     return this.apiClient.get(`/api/v1/records/${patientId}`);
   }
+
+  getPatientById(patientId) {
+    return this.apiClient.get(`/api/v1/patient/${patientId}`);
+  }
 }

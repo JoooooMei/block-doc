@@ -11,7 +11,7 @@ const NewJournalEntry = ({ provider, patient }) => {
   const handleNewEntry = async () => {
     const record = {
       provider: provider,
-      patientId: patient,
+      patientId: patient.patientId,
       recordType: 1,
       note,
       diagnose,
@@ -34,10 +34,7 @@ const NewJournalEntry = ({ provider, patient }) => {
         setNote={setNote}
         handleNewEntry={handleNewEntry}
       />
-      <div>
-        <h1>Test Add Record</h1>
-        <button onClick={handleNewEntry}>Skicka test-record</button>
-      </div>
+
       {entry && (
         <div>
           Det gick bra
