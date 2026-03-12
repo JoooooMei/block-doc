@@ -8,10 +8,20 @@ const PatientCard = ({ mountedPatient, setMainView }) => {
   return (
     <>
       <div className="patient-card">
-        {console.log('Mounted Patient', mountedPatient)}
-        <h2>
-          {mountedPatient.firstName} {mountedPatient.lastName}
-        </h2>
+        <div className="icon-wrapper">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="#1f1f1f">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+          </svg>
+          <h3>
+            {mountedPatient.firstName} {mountedPatient.lastName}
+          </h3>
+        </div>
         <span>{mountedPatient?.patientId}</span>
         <ul>
           <li>
@@ -23,7 +33,6 @@ const PatientCard = ({ mountedPatient, setMainView }) => {
           </li>
           <li>{mountedPatient?.contact?.email}</li>
         </ul>
-        <hr />
       </div>
       {mountedPatient.patientId && (
         <div className="app-selector-card">

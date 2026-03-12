@@ -70,6 +70,10 @@ export class PatientJournalRepository {
     };
   }
 
+  async getRecords(patientId) {
+    return await journalEntryModel.find({ patientId });
+  }
+
   async verifyRecord() {}
 
   async authorizeProvider(providerAddress) {

@@ -36,10 +36,6 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
 }
@@ -52,8 +48,13 @@ hr {
 .block-doc-logo {
   display: flex;
   align-items: center;
+  color: #ff8000;
   gap: 0.2rem;
   margin-bottom: 2rem;
+  width: fit-content;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  border: 3px solid #515151;
 }
 
 .block-doc-logo h1 {
@@ -92,8 +93,13 @@ form .input-wrapper .dual-input .street-number {
   display: flex;
 }
 
+.large-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .large-form .input-wrapper label:first-child {
-  min-width: 180px;
+  min-width: 130px;
 }
 
 .find-patient-wrapper {
@@ -126,6 +132,15 @@ form .input-wrapper .dual-input .street-number {
   gap: 2rem;
   justify-content: space-between;
   padding: 0.5rem;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.find-patient-list .patient-id {
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
 .find-patient-wrapper ul li:hover {
@@ -143,7 +158,7 @@ form .input-wrapper .dual-input .street-number {
 }
 
 .find-patient-wrapper input[type='text'] {
-  width: 188px;
+  width: 210px;
 }
 
 main {
@@ -153,11 +168,12 @@ main {
   padding: 2rem;
   flex: 1;
   padding: 2rem;
+  overflow-y: auto;
 }
 
 aside {
-  min-width: 272px;
-  max-width: 272px;
+  min-width: 328px;
+  max-width: 328px;
   background: rgb(246 246 246);
   padding: 1rem 1.5rem;
   border-right: 2px solid #e9e9e9;
@@ -171,13 +187,45 @@ input[type='text'] {
   background: rgb(246 246 246);
   padding: 0.5rem;
   border-radius: 10px;
+  font-weight: 600;
   width: 100%;
   border-right: 2px solid #e9e9e9;
-  border: 2px solid #b5b5b5;
+  border: 2px solid #515151;
+}
+
+textarea {
+  background: rgb(246 246 246);
+  padding: 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 100%;
+  border-right: 2px solid #e9e9e9;
+  border: 2px solid #515151;
+}
+
+.patient-card {
+  background: #00000012;
+  border-radius: 10px;
+  margin-top: 1rem;
+  padding: 1rem;
+  animation: higlight-selected 200ms ease-in-out;
+}
+
+@keyframes higlight-selected {
+  0% {
+    scale: 0.9;
+  }
+  50% {
+    scale: 1.1;
+  }
+
+  100% {
+    scale: 1;
+  }
 }
 
 .patient-card h2 {
-  margin-bottom: 0;
+  margin-block: 0;
 }
 
 span {
@@ -187,14 +235,16 @@ span {
 
 .patient-card ul {
   list-style: none;
-
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 .app-selector-card {
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
@@ -223,17 +273,17 @@ span {
 }
 
 .app-icon span svg {
-  background: #2d214c;
-  width: 30px;
-  height: 30px;
+  border: 2px solid #ff8001;
+  width: 42px;
+  height: 42px;
   padding: 8px;
   border-radius: 100vw;
-  fill: #d7d6a6;
+  fill: #515151;
 }
 
 .patient-app:hover .app-icon {
   outline: 2px solid;
-  color: #535bf2;
+  color: #423e3b;
 }
 
 .patient-app:hover {
@@ -246,13 +296,96 @@ span {
   border-radius: 10px;
 }
 
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.icon-btn:hover svg {
+  fill: #ff8001;
+}
+.small-icon-btn:hover svg {
+  fill: #ff8001;
+}
+
 .small-icon-btn {
   background: none;
   padding: 0.2rem;
   margin-top: 0.5rem;
   display: flex;
   gap: 0.3rem;
+  border: 2px solid;
+  font-weight: 600;
   align-items: center;
   color: #474747;
   font-size: 0.8rem;
+}
+
+.add-patient {
+  padding-left: 2rem;
+}
+
+.card {
+  background: #00000012;
+  border-radius: 10px;
+  max-width: 650px;
+  padding: 1rem;
+}
+
+.icon-wrapper,
+.icon-wrapper > * {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.journal-records-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.journal-records-list .card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.journal-records-list .journal-note {
+  padding: 1rem;
+}
+
+.journal-heading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  background: #0000000f;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.journal-heading svg {
+  fill: #525252;
+}
+
+.journal-note .note {
+  background: #ffffffa1;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.journal-note h4 {
+  margin: 0 0 5px 0;
+}
+
+.date {
+  font-family: monospace;
+}
+
+.margin-top-2 {
+  margin-top: 2rem;
 }

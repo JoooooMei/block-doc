@@ -44,6 +44,7 @@ const FindPatientForm = ({ mountedPatient, setMountedPatient }) => {
               value={patientId}
               onChange={handleChange}
               autoComplete="off"
+              placeholder="Namn eller personnummer"
             />
             {patientId && patientId.length < 12 && (
               <ul className="find-patient-list">
@@ -54,13 +55,13 @@ const FindPatientForm = ({ mountedPatient, setMountedPatient }) => {
                       onClick={() => {
                         setMountedPatient(p),
                           setMatchingPatients(''),
-                          setPatientId(p.patientId);
+                          setPatientId('');
                       }}>
                       <div>
                         <p>{p.firstName}</p>
                         <p>{p.lastName}</p>
                       </div>
-                      <p>{p.patientId}</p>
+                      <p className="patient-id">{p.patientId}</p>
                     </li>
                   ))}
               </ul>

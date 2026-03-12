@@ -22,7 +22,7 @@ const patientSchema = new mongoose.Schema({
       type: String,
     },
     zip: {
-      type: Number,
+      type: String,
     },
     city: {
       type: String,

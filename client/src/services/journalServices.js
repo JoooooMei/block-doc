@@ -14,7 +14,7 @@ export class JournalService {
       throw new Error('Invalid journal data');
     }
 
-    return this.journalRepository.addRecord(data);
+    return await this.journalRepository.addRecord(data);
   }
 
   async fetchPatientRecords(patientId) {
@@ -22,10 +22,14 @@ export class JournalService {
       throw new Error('Missing patientId');
     }
 
-    return this.journalRepository.getRecords(patientId);
+    return await this.journalRepository.getRecords(patientId);
   }
 
   async fetchPatientById(patientId) {
-    return this.journalRepository.getPatientById(patientId);
+    return await this.journalRepository.getPatientById(patientId);
+  }
+
+  async createNewPatient(patient) {
+    return await this.journalRepository.addNewPatient(patient);
   }
 }
