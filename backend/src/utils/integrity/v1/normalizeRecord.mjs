@@ -2,9 +2,7 @@
  * Normalize values to avoid hash inconsistencies.
  */
 export const normalize = (value) => {
-  if (value === undefined) {
-    throw new Error('Undefined values not allowed in records');
-  }
+  if (value === undefined) return undefined;
 
   if (value === null) return null;
 
@@ -33,7 +31,10 @@ export const normalize = (value) => {
   if (typeof value === 'object') {
     const result = {};
     for (const key of Object.keys(value)) {
-      result[key] = normalize(value[key]);
+      const normalized = normalize(value[key]);
+      if (normalized !== undefined) {
+        result[key] = normalized;
+      }
     }
     return result;
   }

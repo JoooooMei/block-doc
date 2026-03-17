@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: './config/config.env' });
 
-export class smartContractModel {
+export class SmartContractRepository {
   constructor() {
     this.provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
 
