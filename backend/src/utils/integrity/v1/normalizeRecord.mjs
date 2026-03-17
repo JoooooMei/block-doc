@@ -11,7 +11,7 @@ export const normalize = (value) => {
     return value.toISOString();
   }
 
-  // Normalize strings (unicode safe)
+  // Normalize strings
   if (typeof value === 'string') {
     return value.normalize('NFC');
   }

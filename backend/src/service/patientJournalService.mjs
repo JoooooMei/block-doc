@@ -41,11 +41,18 @@ export class PatientJournalService {
 
     const { data } = await response.json();
     const matches = data?.journalRecords ?? [];
+    const onChain = matches[0] ?? null;
+
+    const timeDeviation =
+      onChain
+        ? Math.abs(new Date(record.timestamp) - new Date(onChain.timestamp * 1000)) / 1000
+        : null;
 
     return {
       verified: matches.length > 0,
       computedRecordHash,
-      onChain: matches[0] ?? null,
+      timeDeviation,
+      onChain,
     };
   }
 
