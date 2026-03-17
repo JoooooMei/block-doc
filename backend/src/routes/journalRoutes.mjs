@@ -18,6 +18,6 @@ journalRouter.get('/journal/:patientId', getRecords);
 
 journalRouter.post('/patients', addPatient);
 journalRouter.post('/add-record', addRecord);
-journalRouter.post('/verify-record', verifyRecord);
+journalRouter.get('/verify-record/:id', verifyRecord);
 
 export default journalRouter;

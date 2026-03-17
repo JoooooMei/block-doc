@@ -52,8 +52,10 @@ export const addRecord = async (req, res) => {
 };
 
 export const verifyRecord = async (req, res) => {
+  console.log('VERIFYING');
   try {
-    const data = await repository.verifyRecord(req.body);
+    const data = await repository.verifyRecord(req.params.id);
+    res.status(200).json({ success: true, data });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: error.message });

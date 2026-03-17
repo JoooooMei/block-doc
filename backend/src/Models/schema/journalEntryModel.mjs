@@ -16,6 +16,8 @@ const journalEntrySchema = new mongoose.Schema({
   timestamp: String,
   blockchainTimestamp: String,
   hashVersion: String,
+  recordId: { type: String, unique: true },
+  txHash: String,
 });
 
 export default mongoose.model('journalEntry', journalEntrySchema);
