@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useCreateJournalEntry } from '../../../hooks/useCreateJournalEntry';
 import JournalEntryForm from './JournalEntryForm';
 
-const NewJournalEntry = ({ provider, patient }) => {
+const NewJournalEntry = ({ provider, patient, onEntryCreated }) => {
   const { create, entry, loading, error } = useCreateJournalEntry();
 
   const [diagnose, setDiagnose] = useState('');
@@ -17,11 +17,12 @@ const NewJournalEntry = ({ provider, patient }) => {
       diagnose,
     };
 
-    await create(record);
+    const result = await create(record);
 
-    if (entry) {
+    if (result?.success) {
       setDiagnose('');
       setNote('');
+      onEntryCreated();
     }
   };
 

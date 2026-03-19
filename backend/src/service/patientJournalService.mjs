@@ -3,8 +3,6 @@ import { hashRecord } from '../utils/integrity/v1/hashRecord.mjs';
 import { hashPatientId } from '../utils/integrity/v1/hashPatientId.mjs';
 import { v4 as uuidv4 } from 'uuid';
 
-const SUBGRAPH_URL = 'http://localhost:8000/subgraphs/name/blockdoc';
-
 export class PatientJournalService {
   constructor() {
     this.repository = new PatientJournalRepository();
@@ -19,29 +17,28 @@ export class PatientJournalService {
       { recordType: record.recordType },
     ];
     const computedRecordHash = hashRecord(recordEntry);
-    const computedPatientIdHash = hashPatientId(record.patientId);
 
     const query = `{
-      journalRecords(where: {
-        recordHash: "${computedRecordHash}",
-        patientId: "${computedPatientIdHash}"
-      }) {
+      journalRecords(where: { txHash: "${record.txHash}" }) {
         id
         txHash
+        recordHash
         author
         timestamp
       }
     }`;
 
-    const response = await fetch(SUBGRAPH_URL, {
+    const response = await fetch(process.env.SUBGRAPH_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query }),
     });
 
     const { data } = await response.json();
-    const matches = data?.journalRecords ?? [];
-    const onChain = matches[0] ?? null;
+    const onChain = data?.journalRecords?.[0] ?? null;
+
+    const onChainRecordHash = onChain?.recordHash ?? null;
+    const verified = onChainRecordHash === computedRecordHash;
 
     const timeDeviation =
       onChain
@@ -49,8 +46,9 @@ export class PatientJournalService {
         : null;
 
     return {
-      verified: matches.length > 0,
+      verified,
       computedRecordHash,
+      onChainRecordHash,
       timeDeviation,
       onChain,
     };

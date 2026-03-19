@@ -53,6 +53,7 @@ CONTRACT_ADDRESS=          # fill in after deploying the contract (step 5)
 HASH_PATIENT_SECRET=       # pick a long secret string
 HASH_VERSION=v1
 RPC_URL=http://127.0.0.1:8545
+SUBGRAPH_URL=http://localhost:8000/subgraphs/name/blockdoc
 PRIVATE_KEY=           # private key of the wallet that deploys the contract and signs transactions
                        # for local dev, use any of the accounts printed by "npx hardhat node"
 ```

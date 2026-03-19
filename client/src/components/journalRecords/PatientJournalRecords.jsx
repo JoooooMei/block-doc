@@ -1,11 +1,22 @@
-import React from 'react';
-import PatientCard from '../patientCard/PatientCard';
+import React, { useState } from 'react';
 import { formatDate } from '../../helper/formatDate';
+import PatientJournalProof from './PatientJournalProof';
 
 const PatientJournalRecords = ({ records, mountedPatient }) => {
+  const [expandedProofs, setExpandedProofs] = useState([]);
+
+  const handleExpand = (id) => {
+    if (expandedProofs.includes(id)) {
+      setExpandedProofs(expandedProofs.filter((p) => p !== id));
+    } else {
+      setExpandedProofs([...expandedProofs, id]);
+    }
+  };
+
   return (
     <div>
-      {console.log(records)}
+      {console.log('records', records)}
+      {console.log('Expanden proofs', expandedProofs)}
 
       <div className="icon-wrapper">
         <svg
@@ -34,6 +45,9 @@ const PatientJournalRecords = ({ records, mountedPatient }) => {
                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q13-36 43.5-58t68.5-22q38 0 68.5 22t43.5 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm80-80h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm221.5-198.5Q510-807 510-820t-8.5-21.5Q493-850 480-850t-21.5 8.5Q450-833 450-820t8.5 21.5Q467-790 480-790t21.5-8.5ZM200-200v-560 560Z" />
               </svg>
               <span className="date">{formatDate(r.timestamp)}</span>
+              <div className={r.verified ? 'verified true' : 'verified false'}>
+                {r.verified ? '✓' : '!'}
+              </div>
             </div>
             <div className="journal-note">
               <div className="note">
@@ -45,6 +59,12 @@ const PatientJournalRecords = ({ records, mountedPatient }) => {
                 {r.diagnose}
               </div>
             </div>
+            <button className="expand-btn" onClick={() => handleExpand(r._id)}>
+              {expandedProofs.includes(r._id) ? 'Dölj proof ▼' : 'Visa proof ▶'}
+            </button>
+            {expandedProofs.includes(r._id) && (
+              <PatientJournalProof proof={r} />
+            )}
           </li>
         ))}
       </ul>
