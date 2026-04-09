@@ -34,4 +34,11 @@ export class ApiClient {
       body: JSON.stringify(body),
     });
   }
+
+  patch(path, body) {
+    return this.request(path, {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    });
+  }
 }

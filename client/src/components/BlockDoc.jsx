@@ -7,6 +7,7 @@ import AddPatient from './addPatient/AddPatient';
 import AddPatientForm from './addPatient/AddPatientForm';
 import { journalService } from '../container/container';
 import PatientJournalRecords from './journalRecords/PatientJournalRecords';
+import UpdatePatient from './updatePatient/UpdatePatient';
 
 const BlockDoc = () => {
   const [mainView, setMainView] = useState('');
@@ -57,11 +58,13 @@ const BlockDoc = () => {
             mountedPatient={mountedPatient}
             setMountedPatient={setMountedPatient}
           />
-          <AddPatient
-            setMountedPatient={setMountedPatient}
-            setMainView={setMainView}
-          />
         </div>
+
+        <AddPatient
+          setMountedPatient={setMountedPatient}
+          setMainView={setMainView}
+        />
+
         <div>
           {mountedPatient && (
             <PatientCard
@@ -74,7 +77,11 @@ const BlockDoc = () => {
       </aside>
       <main>
         {mainView === 'write-journal' && (
-          <NewJournalEntry provider={provider} patient={mountedPatient} onEntryCreated={() => setJournalVersion(v => v + 1)} />
+          <NewJournalEntry
+            provider={provider}
+            patient={mountedPatient}
+            onEntryCreated={() => setJournalVersion((v) => v + 1)}
+          />
         )}
 
         {mainView === 'read-journal' && (
@@ -86,7 +93,13 @@ const BlockDoc = () => {
           </>
         )}
 
-        {mainView === 'edit-info' && ''}
+        {mainView === 'edit-info' && (
+          <UpdatePatient
+            key={mountedPatient.patientId}
+            mountedPatient={mountedPatient}
+            setMountedPatient={setMountedPatient}
+          />
+        )}
 
         {mainView === 'add-new-patient' && (
           <AddPatientForm

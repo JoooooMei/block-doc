@@ -89,7 +89,7 @@ Copy the contract address from the output and update two files:
 ### 6. Start backend
 
 ```bash
-cd backend && node src/server.mjs
+cd backend && npm run dev
 ```
 
 ### 7. Deploy subgraph

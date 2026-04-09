@@ -40,10 +40,11 @@ export class PatientJournalService {
     const onChainRecordHash = onChain?.recordHash ?? null;
     const verified = onChainRecordHash === computedRecordHash;
 
-    const timeDeviation =
-      onChain
-        ? Math.abs(new Date(record.timestamp) - new Date(onChain.timestamp * 1000)) / 1000
-        : null;
+    const timeDeviation = onChain
+      ? Math.abs(
+          new Date(record.timestamp) - new Date(onChain.timestamp * 1000)
+        ) / 1000
+      : null;
 
     return {
       verified,
@@ -66,6 +67,10 @@ export class PatientJournalService {
     return this.repository.addPatient(patient);
   }
 
+  updatePatient(patient) {
+    return this.repository.updatePatient(patient);
+  }
+
   addRecord(record) {
     const { patientId, note, diagnose, recordType } = record;
 
@@ -86,7 +91,12 @@ export class PatientJournalService {
       hashedPatientId,
       hashedRecord,
       recordType,
-      dbRecord: { ...record, recordId, timestamp, hashVersion: process.env.HASH_VERSION },
+      dbRecord: {
+        ...record,
+        recordId,
+        timestamp,
+        hashVersion: process.env.HASH_VERSION,
+      },
     });
   }
 

@@ -4,7 +4,9 @@ const patientJournalService = new PatientJournalService();
 
 export const getPatient = async (req, res) => {
   try {
-    const patient = await patientJournalService.searchPatient(req.params.patientId);
+    const patient = await patientJournalService.searchPatient(
+      req.params.patientId
+    );
     res.status(200).json({ success: true, patient });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -24,6 +26,18 @@ export const addPatient = async (req, res) => {
   try {
     const data = await patientJournalService.addPatient(req.body);
     res.status(201).json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+export const updatePatient = async (req, res) => {
+  try {
+    const data = await patientJournalService.updatePatient({
+      patientId: req.params.patientId,
+      ...req.body,
+    });
+    res.status(200).json({ success: true, data });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }

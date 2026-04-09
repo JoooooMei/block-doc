@@ -19,4 +19,8 @@ export class JournalRepository {
   addNewPatient(patient) {
     return this.apiClient.post(`${this.baseUrl}/patients`, patient);
   }
+
+  updatePatient(patientId, fields) {
+    return this.apiClient.patch(`${this.baseUrl}/patients/${patientId}`, fields);
+  }
 }

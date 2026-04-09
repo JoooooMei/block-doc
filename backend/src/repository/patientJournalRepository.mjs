@@ -28,6 +28,25 @@ export class PatientJournalRepository {
     return newPatient;
   }
 
+  async updatePatient(patient) {
+    const { patientId, contact, ...fields } = patient;
+
+    const update = { ...fields };
+
+    if (contact) {
+      for (const [key, value] of Object.entries(contact)) {
+        update[`contact.${key}`] = value;
+      }
+    }
+
+    const updated = await patientModel.findOneAndUpdate(
+      { patientId },
+      { $set: update },
+      { new: true }
+    );
+    return updated;
+  }
+
   async addRecord({ hashedPatientId, hashedRecord, recordType, dbRecord }) {
     const blockchainRecord = await this.smartContract.addRecord(
       hashedPatientId,

@@ -193,6 +193,13 @@ input[type='text'] {
   border: 2px solid #515151;
 }
 
+input[type='text']:disabled {
+  background: rgb(225 225 225);
+  border-color: #c0c0c0;
+  color: #888;
+  cursor: not-allowed;
+}
+
 textarea {
   background: rgb(246 246 246);
   padding: 0.5rem;
@@ -294,6 +301,7 @@ span {
   background: #00000012;
   padding: 1rem;
   border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 .icon-btn {
@@ -324,7 +332,6 @@ span {
 }
 
 .add-patient {
-  padding-left: 2rem;
 }
 
 .card {

@@ -1,6 +1,5 @@
-/**
- * Normalize values to avoid hash inconsistencies.
- */
+// Normalize values to avoid hash inconsistencies.
+
 export const normalize = (value) => {
   if (value === undefined) return undefined;
 
