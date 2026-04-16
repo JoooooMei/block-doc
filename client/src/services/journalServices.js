@@ -32,4 +32,8 @@ export class JournalService {
   async createNewPatient(patient) {
     return await this.journalRepository.addNewPatient(patient);
   }
+
+  async updatePatient(patientId, fields) {
+    return await this.journalRepository.updatePatient(patientId, fields);
+  }
 }

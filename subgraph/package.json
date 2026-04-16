@@ -1,13 +1,22 @@
 {
   "name": "subgraph",
   "version": "1.0.0",
-  "description": "Install goldsky",
+  "description": "The Graph subgraph for BlockDoc local development",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create-local": "graph create --node http://localhost:8020/ blockdoc",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 blockdoc",
+    "remove-local": "graph remove --node http://localhost:8020/ blockdoc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.35.1"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.81.0"
+  }
 }

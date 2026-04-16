@@ -193,6 +193,13 @@ input[type='text'] {
   border: 2px solid #515151;
 }
 
+input[type='text']:disabled {
+  background: rgb(225 225 225);
+  border-color: #c0c0c0;
+  color: #888;
+  cursor: not-allowed;
+}
+
 textarea {
   background: rgb(246 246 246);
   padding: 0.5rem;
@@ -294,6 +301,7 @@ span {
   background: #00000012;
   padding: 1rem;
   border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 .icon-btn {
@@ -324,7 +332,6 @@ span {
 }
 
 .add-patient {
-  padding-left: 2rem;
 }
 
 .card {
@@ -352,7 +359,6 @@ span {
 
 .journal-records-list .card {
   padding: 0;
-  overflow: hidden;
 }
 
 .journal-records-list .journal-note {
@@ -367,9 +373,68 @@ span {
   padding: 0.3rem 0.5rem;
   font-size: 0.8rem;
   font-weight: 600;
+  border-radius: 10px 10px 0 0;
 }
 .journal-heading svg {
   fill: #525252;
+}
+
+.journal-heading .verified.true {
+  cursor: default;
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: green;
+  width: 20px;
+  height: 20px;
+  border: 2px solid green;
+  border-radius: 100vw;
+}
+
+.journal-heading .verified.false {
+  cursor: default;
+  position: relative;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  width: 20px;
+  height: 20px;
+  border: 2px solid red;
+  border-radius: 100vw;
+}
+
+.journal-heading .verified.false:hover::before {
+  content: 'Anteckningen matchar INTE blockchain hash';
+  display: block;
+  position: absolute;
+  bottom: 24px;
+  width: 150px;
+  background: white;
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid red;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.journal-heading .verified.true:hover::before {
+  content: 'Anteckningen matchar blockchain hash';
+  display: block;
+  position: absolute;
+  bottom: 24px;
+  width: 150px;
+  background: white;
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid green;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .journal-note .note {
@@ -387,5 +452,52 @@ span {
 }
 
 .margin-top-2 {
+  margin-top: 2rem;
+}
+
+.expand-btn {
+  font-weight: 600;
+  background: none;
+  color: black;
+  border: none;
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+
+.expand-btn:hover {
+  border: none;
+  box-shadow: none;
+}
+.expand-btn:focus-visible {
+  outline: none;
+  background-color: transparent !important;
+}
+
+.expand-btn:focus {
+  outline: none;
+  background-color: transparent !important;
+}
+.expand-btn:focus-visible {
+  outline: none;
+  background-color: transparent !important;
+}
+
+.proof ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 1rem;
+  list-style: none;
+  font-family: monospace;
+  border-top: 2px dashed rgb(176 176 176);
+}
+
+.proof ul li {
+  background-color: #ffffffa1;
+  padding: 0.2rem;
+}
+
+.success-card {
   margin-top: 2rem;
 }

@@ -10,6 +10,7 @@ export function handleRecordAdded(event: RecordAdded): void {
   record.author = event.params.author.toHex();
   record.recordType = event.params.recordType;
   record.timestamp = event.params.timestamp;
+  record.txHash = event.transaction.hash.toHex();
 
   record.save();
 }

@@ -7,6 +7,7 @@ import AddPatient from './addPatient/AddPatient';
 import AddPatientForm from './addPatient/AddPatientForm';
 import { journalService } from '../container/container';
 import PatientJournalRecords from './journalRecords/PatientJournalRecords';
+import UpdatePatient from './updatePatient/UpdatePatient';
 
 const BlockDoc = () => {
   const [mainView, setMainView] = useState('');
@@ -14,7 +15,9 @@ const BlockDoc = () => {
     '0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199'
   );
   const [mountedPatient, setMountedPatient] = useState(null);
+
   const [records, setRecords] = useState([]);
+  const [journalVersion, setJournalVersion] = useState(0);
 
   useEffect(() => {
     if (!mountedPatient) return;
@@ -34,7 +37,7 @@ const BlockDoc = () => {
     };
 
     getPatientJournal();
-  }, [mountedPatient]);
+  }, [mountedPatient, journalVersion]);
   return (
     <>
       {console.log('Visa: ', mainView)}
@@ -55,23 +58,30 @@ const BlockDoc = () => {
             mountedPatient={mountedPatient}
             setMountedPatient={setMountedPatient}
           />
-          <AddPatient
-            setMountedPatient={setMountedPatient}
-            setMainView={setMainView}
-          />
         </div>
+
+        <AddPatient
+          setMountedPatient={setMountedPatient}
+          setMainView={setMainView}
+        />
+
         <div>
           {mountedPatient && (
             <PatientCard
               mountedPatient={mountedPatient}
               setMainView={setMainView}
+              setJournalVersion={setJournalVersion}
             />
           )}
         </div>
       </aside>
       <main>
         {mainView === 'write-journal' && (
-          <NewJournalEntry provider={provider} patient={mountedPatient} />
+          <NewJournalEntry
+            provider={provider}
+            patient={mountedPatient}
+            onEntryCreated={() => setJournalVersion((v) => v + 1)}
+          />
         )}
 
         {mainView === 'read-journal' && (
@@ -83,7 +93,13 @@ const BlockDoc = () => {
           </>
         )}
 
-        {mainView === 'edit-info' && ''}
+        {mainView === 'edit-info' && (
+          <UpdatePatient
+            key={mountedPatient.patientId}
+            mountedPatient={mountedPatient}
+            setMountedPatient={setMountedPatient}
+          />
+        )}
 
         {mainView === 'add-new-patient' && (
           <AddPatientForm

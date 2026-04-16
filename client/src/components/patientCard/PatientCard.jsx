@@ -4,7 +4,7 @@ import EditProfileIcon from '../icons/EditProfileIcon';
 import ReadIcon from '../icons/ReadIcon';
 import WriteIcon from '../icons/WriteIcon';
 
-const PatientCard = ({ mountedPatient, setMainView }) => {
+const PatientCard = ({ mountedPatient, setMainView, setJournalVersion }) => {
   return (
     <>
       <div className="patient-card">
@@ -44,7 +44,7 @@ const PatientCard = ({ mountedPatient, setMainView }) => {
             <AppIcon name={'Skriv Journal'} icon={WriteIcon} />
           </div>
 
-          <div onClick={() => setMainView('read-journal')}>
+          <div onClick={() => { setMainView('read-journal'); setJournalVersion(v => v + 1); }}>
             <AppIcon name="Läs Journal" icon={ReadIcon} />
           </div>
         </div>

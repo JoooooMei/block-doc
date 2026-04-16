@@ -1,13 +1,11 @@
-import { smartContractModel } from '../Models/SmartContractModel.mjs';
+import { SmartContractRepository } from './smartContractRepository.mjs';
 import providerModel from '../Models/schema/providerModel.mjs';
 import journalEntryModel from '../Models/schema/journalEntryModel.mjs';
 import patientModel from '../Models/schema/patientModel.mjs';
-import { hashRecord } from '../utils/integrity/v1/hashRecord.mjs';
-import { hashPatientId } from '../utils/integrity/v1/hashPatientId.mjs';
 
 export class PatientJournalRepository {
   constructor() {
-    this.smartContract = new smartContractModel();
+    this.smartContract = new SmartContractRepository();
   }
 
   async searchPatient(query) {
@@ -30,42 +28,45 @@ export class PatientJournalRepository {
     return newPatient;
   }
 
-  async addRecord(record) {
-    const { patientId, note, diagnose, recordType } = record;
+  async updatePatient(patient) {
+    const { patientId, contact, ...fields } = patient;
 
-    const timestamp = new Date().toISOString();
+    const update = { ...fields };
 
-    // Hash data for blockchain
-    const recordEntry = [
-      { note },
-      { diagnose },
-      { date: timestamp },
-      { recordType },
-    ];
-    const hashedId = hashPatientId(patientId);
-    const hashedRecord = hashRecord(recordEntry);
+    if (contact) {
+      for (const [key, value] of Object.entries(contact)) {
+        update[`contact.${key}`] = value;
+      }
+    }
 
-    // Append to blockchain
+    const updated = await patientModel.findOneAndUpdate(
+      { patientId },
+      { $set: update },
+      { returnDocument: 'after' }
+    );
+    return updated;
+  }
+
+  async addRecord({ hashedPatientId, hashedRecord, recordType, dbRecord }) {
     const blockchainRecord = await this.smartContract.addRecord(
-      hashedId,
+      hashedPatientId,
       hashedRecord,
       recordType
     );
 
-    // Append to db
-    record.timestamp = timestamp;
-    record.blockchainTimestamp = blockchainRecord.timestamp;
-    record.hashVersion = process.env.HASH_VERSION;
-
-    const dbRecord = await journalEntryModel.create(record);
+    const savedRecord = await journalEntryModel.create({
+      ...dbRecord,
+      blockchainTimestamp: blockchainRecord.timestamp,
+      txHash: blockchainRecord.txHash,
+    });
 
     return {
-      addedToDb: dbRecord,
+      addedToDb: savedRecord,
       addedToBlockchain: {
-        hashedId,
+        hashedPatientId,
         hashedRecord,
         recordType,
-        txHash: blockchainRecord,
+        txHash: blockchainRecord.txHash,
       },
     };
   }
@@ -74,7 +75,9 @@ export class PatientJournalRepository {
     return await journalEntryModel.find({ patientId });
   }
 
-  async verifyRecord() {}
+  async getRecordById(id) {
+    return await journalEntryModel.findById(id);
+  }
 
   async authorizeProvider(providerAddress) {
     return await this.smartContract.authorizeProvider(providerAddress);

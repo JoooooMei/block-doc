@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useCreateJournalEntry } from '../../../hooks/useCreateJournalEntry';
 import JournalEntryForm from './JournalEntryForm';
+import SuccessCard from './SuccessCard';
 
-const NewJournalEntry = ({ provider, patient }) => {
+const NewJournalEntry = ({ provider, patient, onEntryCreated }) => {
   const { create, entry, loading, error } = useCreateJournalEntry();
 
   const [diagnose, setDiagnose] = useState('');
@@ -17,11 +18,12 @@ const NewJournalEntry = ({ provider, patient }) => {
       diagnose,
     };
 
-    await create(record);
+    const result = await create(record);
 
-    if (entry) {
+    if (result?.success) {
       setDiagnose('');
       setNote('');
+      onEntryCreated();
     }
   };
 
@@ -38,15 +40,18 @@ const NewJournalEntry = ({ provider, patient }) => {
         </svg>
         <h3>Ny daganteckning</h3>
       </div>
-      <JournalEntryForm
-        diagnose={diagnose}
-        setDiagnose={setDiagnose}
-        note={note}
-        setNote={setNote}
-        handleNewEntry={handleNewEntry}
-      />
 
-      {entry && (
+      {!entry && (
+        <JournalEntryForm
+          diagnose={diagnose}
+          setDiagnose={setDiagnose}
+          note={note}
+          setNote={setNote}
+          handleNewEntry={handleNewEntry}
+        />
+      )}
+
+      {/* {entry && (
         <div>
           Det gick bra
           <p>
@@ -62,7 +67,8 @@ const NewJournalEntry = ({ provider, patient }) => {
             <b>Diagnose:</b> {entry.addedToDb.diagnose}
           </p>
         </div>
-      )}
+      )} */}
+      {entry && <SuccessCard entry={entry} />}
       {console.log('entry', entry)}
     </>
   );

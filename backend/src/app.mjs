@@ -4,6 +4,7 @@ import { connectDb } from './db/blockDockDB.mjs';
 import journalRouter from './routes/journalRoutes.mjs';
 import adminRouter from './routes/adminRoutes.mjs';
 import cors from 'cors';
+import { appStartConfig } from './appStartConfig.mjs';
 
 dotenv.config({ path: './config/config.env' });
 
@@ -16,5 +17,7 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use('/api/v1', journalRouter);
 app.use('/api/v1', adminRouter);
+
+appStartConfig();
 
 export { app };
