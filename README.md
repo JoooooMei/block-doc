@@ -83,8 +83,8 @@ npx hardhat ignition deploy ignition/modules/BlockDoc.ts --network localhost
 
 Copy the contract address from the output and update two files:
 
-- `backend/config/config.env` → `CONTRACT_ADDRESS`
-- `subgraph/subgraph.yaml` → `source.address`
+- `backend/config/config.env` => `CONTRACT_ADDRESS`
+- `subgraph/subgraph.yaml` => `source.address`
 
 ### 6. Start backend
 

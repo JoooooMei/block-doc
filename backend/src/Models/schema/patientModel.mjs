@@ -5,6 +5,7 @@ const patientSchema = new mongoose.Schema({
   patientId: {
     type: String,
     required: [true, 'No patient ID provided'],
+    immutable: true,
   },
   firstName: {
     type: String,

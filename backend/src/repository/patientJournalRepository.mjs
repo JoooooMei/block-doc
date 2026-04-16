@@ -42,7 +42,7 @@ export class PatientJournalRepository {
     const updated = await patientModel.findOneAndUpdate(
       { patientId },
       { $set: update },
-      { new: true }
+      { returnDocument: 'after' }
     );
     return updated;
   }
